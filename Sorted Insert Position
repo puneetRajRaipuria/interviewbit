@@ -9,7 +9,7 @@ Here are few examples.
 [1,3,5,6], 7 → 4
 [1,3,5,6], 0 → 0
 
-//Solution
+//Solution - Method#1 
 
 int Solution::searchInsert(vector<int> &A, int B) {
     // Do not write main() function.
@@ -21,3 +21,30 @@ int Solution::searchInsert(vector<int> &A, int B) {
     auto index = lower_bound(begin(A),end(A),B); //work as binary search 
     return index-begin(A); //to find the distance from begin
 }
+
+
+//Solution - Method#2
+
+int Solution::searchInsert(vector<int> &A, int B) {
+    int low = 0;
+    int high = A.size()-1;
+    int first_pos = -1;
+    
+    while(low<=high){
+        
+        int mid = low+(high-low)/2;
+        
+        if(A[mid]>=B){
+            first_pos = mid;
+            high = mid-1;
+        }else{
+            low = mid+1;
+        }
+    }
+    
+    if(first_pos==-1){   // if element is not present and bigger than last element
+    first_pos = A.size();
+    }
+    
+    return first_pos;
+    }
