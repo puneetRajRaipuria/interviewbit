@@ -1,0 +1,54 @@
+Evaluate the value of an arithmetic expression in Reverse Polish Notation.
+
+Valid operators are +, -, *, /. Each operand may be an integer or another expression.
+
+
+
+Input Format
+
+The only argument given is character array A.
+Output Format
+
+Return the value of arithmetic expression formed using reverse Polish Notation.
+For Example
+
+Input 1:
+    A =   ["2", "1", "+", "3", "*"]
+Output 1:
+    9
+    
+    
+    
+   //Solution
+   
+   void solva(string i,stack<int>&st){
+    int op2 = st.top(); st.pop();
+    int op1 = st.top(); st.pop();
+  
+    if(i=="+"){
+       st.push(op1+op2);
+    }
+    if(i=="-"){
+        st.push(op1-op2);
+    }
+    if(i=="*"){
+        st.push(op1*op2);
+    }
+    if(i=="/"){
+        st.push(op1/op2);
+    }
+        
+}    
+int Solution::evalRPN(vector<string> &A) {
+ stack<int> st;
+    for(int i =0;i<A.size();i++){
+        if(A[i]=="+"||A[i]=="-"||A[i]=="*"||A[i]=="/"){
+            string temp = A[i];
+            solva(temp,st);
+        }else{
+            st.push(stoi(A[i]));
+        }
+    }
+   return st.top();
+
+}
