@@ -1,0 +1,81 @@
+Given a singly linked list, determine if its a palindrome. Return 1 or 0 denoting if its a palindrome or not, respectively.
+
+Notes:
+
+Expected solution is linear in time and constant in space.
+For example,
+
+List 1-->2-->1 is a palindrome.
+List 1-->2-->3 is not a palindrome.
+
+
+
+//Solution #1 -without reversing the linked list
+
+int Solution::lPalin(ListNode* head) {
+    ListNode* ptr = head;
+    vector<int> vec;
+    int length{0};
+    
+    while(ptr != nullptr){
+        length++;
+        vec.push_back(ptr->val);
+        ptr = ptr->next;
+    }
+    
+    for(int i =0;i<length;i++){
+        if(vec[i] != vec[length-i-1]){
+            return false;
+        }
+    }
+    return true;
+}
+
+
+//Solution #2 -with linklist reversing
+
+
+
+
+
+ListNode<int>* reverseList(ListNode<int>* head){
+
+    ListNode<int>* pre = nullptr;
+    while (head != nullptr) {       
+    ListNode<int>*temp = head->next;
+    head->next = pre;
+    pre = head;
+    head = temp;
+    }
+
+    return pre;
+
+}
+
+bool isListPalindrome(ListNode<int> * l) {
+
+ListNode<int>*slow = l;
+        ListNode<int>*fast = l;
+
+        while(fast != nullptr && fast->next != nullptr)
+        {
+            fast = fast->next->next;
+            slow = slow->next;
+
+        }
+
+        slow = reverseList(slow);
+        fast = l;
+
+
+        while(slow!= nullptr){
+            if(slow->value != fast->value){
+                return false;
+            }
+            slow = slow->next;
+            fast = fast->next;
+        }
+
+
+return true;
+}
